@@ -69,6 +69,21 @@ export function Contact({ onSubmit }: ContactProps) {
       alert(
         "提交成功，我们已收到你的需求，并已向你的邮箱发送自动确认邮件，请注意查收（如未收到，请检查垃圾邮箱）。"
       );
+
+      // GA4 事件：表单提交成功
+      try {
+        (window as any).gtag?.("event", "contact_submit", {
+          event_category: "lead",
+          event_label: "contact_form",
+          value: 1,
+          email: formData.email,
+          name: formData.name,
+          telegram: formData.telegram || undefined
+        });
+      } catch {
+        // 静默失败，避免影响用户体验
+      }
+
       setFormData(initialForm);
       setErrors({});
     } catch (error) {
