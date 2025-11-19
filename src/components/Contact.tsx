@@ -72,6 +72,13 @@ export function Contact({ onSubmit }: ContactProps) {
         event_label: channel,
         value: 1
       });
+
+      const labelMap: Record<ContactChannel, string> = {
+        email: "邮箱地址",
+        telegram: "Telegram 用户名",
+        wechat: "微信号"
+      };
+      alert(`${labelMap[channel]}已复制到剪贴板：${value}`);
     } catch (error) {
       console.error("复制联系方式失败：", error);
     }
