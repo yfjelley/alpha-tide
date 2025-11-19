@@ -6,13 +6,13 @@ type HeaderProps = {
 };
 
 const navItems: { id: string; label: string }[] = [
-  { id: "services", label: "Services" },
-  { id: "products", label: "Products" },
-  { id: "why-us", label: "Why Us" },
-  { id: "process", label: "Process" },
-  { id: "cases", label: "Cases" },
-  { id: "pricing", label: "Pricing" },
-  { id: "contact", label: "Contact" }
+  { id: "services", label: "服务概览" },
+  { id: "products", label: "系统方案" },
+  { id: "why-us", label: "为什么选择我们" },
+  { id: "process", label: "合作流程" },
+  { id: "cases", label: "典型案例" },
+  { id: "pricing", label: "合作套餐" },
+  { id: "contact", label: "联系方式" }
 ];
 
 export function Header({ onNavClick, onConsultClick }: HeaderProps) {
@@ -114,4 +114,3 @@ export function Header({ onNavClick, onConsultClick }: HeaderProps) {
 }
 
 export default Header;
-

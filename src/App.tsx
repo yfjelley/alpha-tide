@@ -15,9 +15,12 @@ function scrollToSection(sectionId: string) {
   const element = document.getElementById(sectionId);
   if (!element) return;
 
-  const headerOffset = 80;
+  const header = document.getElementById("header");
+  const headerHeight = header?.getBoundingClientRect().height ?? 0;
+  const extraGap = 12; // 让标题略微露出一点
+
   const rect = element.getBoundingClientRect();
-  const offsetTop = rect.top + window.scrollY - headerOffset;
+  const offsetTop = rect.top + window.scrollY - headerHeight - extraGap;
 
   window.scrollTo({
     top: offsetTop,
