@@ -30,6 +30,53 @@ export function Contact({ onSubmit }: ContactProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
+  type ContactChannel = "email" | "telegram" | "wechat";
+
+  const trackGaEvent = (action: string, params: Record<string, unknown>) => {
+    try {
+      if (typeof window === "undefined") return;
+      const gtag = (window as any).gtag;
+      if (typeof gtag === "function") {
+        gtag("event", action, params);
+      }
+    } catch {
+      // ignore tracking errors
+    }
+  };
+
+  const handleContactClick = (channel: ContactChannel) => {
+    trackGaEvent("contact_click", {
+      event_category: "lead",
+      event_label: channel,
+      value: 1
+    });
+  };
+
+  const handleContactCopy = async (channel: ContactChannel, value: string) => {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(value);
+      } else {
+        const textarea = document.createElement("textarea");
+        textarea.value = value;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+      }
+
+      trackGaEvent("contact_copy", {
+        event_category: "lead",
+        event_label: channel,
+        value: 1
+      });
+    } catch (error) {
+      console.error("复制联系方式失败：", error);
+    }
+  };
+
   const handleChange =
     (field: keyof ContactFormData) =>
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -71,18 +118,14 @@ export function Contact({ onSubmit }: ContactProps) {
       );
 
       // GA4 事件：表单提交成功
-      try {
-        (window as any).gtag?.("event", "contact_submit", {
-          event_category: "lead",
-          event_label: "contact_form",
-          value: 1,
-          email: formData.email,
-          name: formData.name,
-          telegram: formData.telegram || undefined
-        });
-      } catch {
-        // 静默失败，避免影响用户体验
-      }
+      trackGaEvent("contact_submit", {
+        event_category: "lead",
+        event_label: "contact_form",
+        value: 1,
+        email: formData.email,
+        name: formData.name,
+        telegram: formData.telegram || undefined
+      });
 
       setFormData(initialForm);
       setErrors({});
@@ -275,9 +318,17 @@ export function Contact({ onSubmit }: ContactProps) {
                 id="contact-email-link"
                 href="mailto:yfjelley@gmail.com"
                 className="text-emerald-300 hover:text-emerald-200"
+                onClick={() => handleContactClick("email")}
               >
                 yfjelley@gmail.com
               </a>
+              <button
+                type="button"
+                className="ml-2 rounded-full border border-emerald-400/40 px-2 py-0.5 text-[11px] text-emerald-200 hover:border-emerald-300 hover:text-emerald-100"
+                onClick={() => handleContactCopy("email", "yfjelley@gmail.com")}
+              >
+                复制
+              </button>
             </p>
             <p className="mt-1">
               Telegram：{" "}
@@ -285,15 +336,30 @@ export function Contact({ onSubmit }: ContactProps) {
                 id="contact-telegram-link"
                 href="https://t.me/yf16881"
                 className="text-emerald-300 hover:text-emerald-200"
+                onClick={() => handleContactClick("telegram")}
               >
                 @yf16881
               </a>
+              <button
+                type="button"
+                className="ml-2 rounded-full border border-emerald-400/40 px-2 py-0.5 text-[11px] text-emerald-200 hover:border-emerald-300 hover:text-emerald-100"
+                onClick={() => handleContactCopy("telegram", "@yf16881")}
+              >
+                复制
+              </button>
             </p>
             <p className="mt-1">
               WeChat：{" "}
               <span id="contact-wechat-handle" className="text-emerald-300">
                 btc1688
               </span>
+              <button
+                type="button"
+                className="ml-2 rounded-full border border-emerald-400/40 px-2 py-0.5 text-[11px] text-emerald-200 hover:border-emerald-300 hover:text-emerald-100"
+                onClick={() => handleContactCopy("wechat", "btc1688")}
+              >
+                复制
+              </button>
             </p>
           </div>
         </div>
