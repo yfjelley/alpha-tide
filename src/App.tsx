@@ -41,7 +41,7 @@ function App() {
         onConsultClick={() => handleNavClick("contact")}
       />
 
-      <main className="space-y-10 pt-4 md:space-y-16 md:pt-8">
+      <main className="space-y-6 pt-4 md:space-y-10 md:pt-8">
         <Hero
           onPrimaryClick={() => handleNavClick("contact")}
           onSecondaryClick={() => handleNavClick("services")}

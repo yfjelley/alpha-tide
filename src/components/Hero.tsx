@@ -7,7 +7,7 @@ export function Hero({ onPrimaryClick, onSecondaryClick }: HeroProps) {
   return (
     <section
       id="hero"
-      className="hero-gradient border-b border-slate-800/60 py-14 text-slate-50 md:py-20"
+      className="page-section hero-gradient border-b border-slate-800/60 py-16 text-slate-50 md:py-24"
     >
       <div className="section-container flex flex-col items-center gap-12 md:flex-row md:items-stretch">
         {/* Text side */}

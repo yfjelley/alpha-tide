@@ -30,7 +30,7 @@ const cases = [
 
 export function Cases() {
   return (
-    <section id="cases" className="py-12 md:py-16">
+    <section id="cases" className="page-section py-14 md:py-20">
       <div className="section-container">
         <div className="max-w-2xl">
           <h2 className="text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">
