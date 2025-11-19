@@ -36,6 +36,9 @@ export function Services() {
           <p className="mt-4 text-sm text-slate-300 sm:text-base">
             AlphaTide 提供覆盖策略生命周期全流程的量化技术服务，从策略研发到自动化执行与风控管理。
           </p>
+          <p className="mt-2 text-xs text-slate-400 sm:text-sm">
+            支持 Binance、OKX、Gateio、Hyperliquid 等主流交易所，兼容 TradingView 信号、Hummingbot / Freqtrade 等框架，帮助你快速落地 trading bot 与系统化 trading strategy。
+          </p>
         </div>
 
         <div className="mt-8 grid gap-6 md:mt-10 md:grid-cols-2">
