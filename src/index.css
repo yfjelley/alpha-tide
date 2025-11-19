@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg: #0a0f2b;
+  --color-accent: #00c2a8;
+  --color-text-main: #ffffff;
+  --color-text-muted: #d0d3da;
+  --color-card-bg: #111827;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;
+}
+
+.section-container {
+  @apply mx-auto max-w-6xl px-4 sm:px-6 lg:px-8;
+}
+
+.card-hover {
+  @apply transform rounded-xl border border-slate-800 transition duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-emerald-500/25;
+  background-color: rgba(17, 24, 39, 0.9);
+}
+
+.hero-gradient {
+  background:
+    radial-gradient(circle at top left, #1f2937 0, transparent 55%),
+    radial-gradient(circle at bottom right, #0f766e 0, transparent 55%),
+    linear-gradient(135deg, #020617, #0b1120 45%, #020617 100%);
+  background-size: 200% 200%;
+  animation: heroGradient 16s ease-in-out infinite;
+}
+
+@keyframes heroGradient {
+  0%,
+  100% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+}
+
+.fade-in-up {
+  @apply opacity-0 translate-y-4 transition-all duration-700;
+}
+
+.fade-in-up.in-view {
+  @apply opacity-100 translate-y-0;
+}
