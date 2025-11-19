@@ -33,6 +33,13 @@ export function WhyUs() {
             </li>
           ))}
         </ul>
+
+        <p
+          id="why-us-summary-goal"
+          className="mt-6 rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-4 py-3 text-xs text-emerald-100 sm:text-sm"
+        >
+          典型客户的目标：在可控回撤下，把人工盯盘时间从每天 8 小时降到 1–2 小时。
+        </p>
       </div>
     </section>
   );

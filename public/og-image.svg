@@ -1,0 +1,25 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="at-hero-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="50%" stop-color="#14b8a6"/>
+      <stop offset="100%" stop-color="#0ea5e9"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#020617"/>
+  <rect x="80" y="115" width="260" height="260" rx="72" fill="#020617" stroke="url(#at-hero-gradient)" stroke-width="6"/>
+  <path d="M150 320L210 170h28l60 150h-26.4l-14.4-37H190.4l-14.4 37H150zm50.4-60h43.2L224 206.2l-23.6 53.8z" fill="url(#at-hero-gradient)"/>
+  <path d="M270 170h26v150h-26z" fill="url(#at-hero-gradient)" opacity="0.9"/>
+  <g fill="#e5e7eb">
+    <text x="380" y="220" font-family="system-ui,-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif" font-size="52" font-weight="600">
+      AlphaTide Technologies
+    </text>
+    <text x="380" y="280" font-family="system-ui,-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif" font-size="32" fill="#9ca3af">
+      AI 驱动的量化交易系统 · 策略 → 回测 → 执行 → 风控
+    </text>
+    <text x="380" y="340" font-family="system-ui,-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif" font-size="26" fill="#6b7280">
+      面向有真实资金的个人交易者、小型基金与量化团队
+    </text>
+  </g>
+</svg>
+

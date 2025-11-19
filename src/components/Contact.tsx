@@ -11,7 +11,7 @@ export type ContactFormData = {
 };
 
 type ContactProps = {
-  onSubmit?: (data: ContactFormData) => void;
+  onSubmit?: (data: ContactFormData) => Promise<void> | void;
 };
 
 const initialForm: ContactFormData = {
@@ -27,6 +27,8 @@ const initialForm: ContactFormData = {
 export function Contact({ onSubmit }: ContactProps) {
   const [formData, setFormData] = useState<ContactFormData>(initialForm);
   const [errors, setErrors] = useState<{ name?: string; email?: string }>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleChange =
     (field: keyof ContactFormData) =>
@@ -49,18 +51,32 @@ export function Contact({ onSubmit }: ContactProps) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!validate()) return;
 
-    console.log("Contact form data:", formData);
-    if (onSubmit) {
-      onSubmit(formData);
-    }
+    if (isSubmitting) return;
 
-    alert("感谢你的提交，我们会尽快与您联系。");
-    setFormData(initialForm);
-    setErrors({});
+    setSubmitError(null);
+    setIsSubmitting(true);
+
+    try {
+      console.log("Contact form data:", formData);
+      if (onSubmit) {
+        await onSubmit(formData);
+      }
+
+      alert(
+        "提交成功，我们已收到你的需求，并已向你的邮箱发送自动确认邮件，请注意查收（如未收到，请检查垃圾邮箱）。"
+      );
+      setFormData(initialForm);
+      setErrors({});
+    } catch (error) {
+      console.error("提交失败：", error);
+      setSubmitError("提交失败，请稍后重试，或直接通过 Email / Telegram 与我们联系。");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -226,10 +242,14 @@ export function Contact({ onSubmit }: ContactProps) {
               <button
                 id="contact-submit-button"
                 type="submit"
-                className="inline-flex w-full items-center justify-center rounded-full bg-emerald-400 px-6 py-3 text-sm font-medium text-slate-900 shadow-accent-soft transition hover:bg-emerald-300 md:w-auto"
+                disabled={isSubmitting}
+                className="inline-flex w-full items-center justify-center rounded-full bg-emerald-400 px-6 py-3 text-sm font-medium text-slate-900 shadow-accent-soft transition hover:bg-emerald-300 disabled:cursor-not-allowed disabled:opacity-70 md:w-auto"
               >
-                提交需求
+                {isSubmitting ? "提交中..." : "提交需求"}
               </button>
+              {submitError && (
+                <p className="mt-2 text-xs text-red-400">{submitError}</p>
+              )}
             </div>
           </form>
 
@@ -238,21 +258,27 @@ export function Contact({ onSubmit }: ContactProps) {
               Email：{" "}
               <a
                 id="contact-email-link"
-                href="mailto:contact@alphatide.tech"
+                href="mailto:yfjelley@gmail.com"
                 className="text-emerald-300 hover:text-emerald-200"
               >
-                contact@alphatide.tech
+                yfjelley@gmail.com
               </a>
             </p>
             <p className="mt-1">
               Telegram：{" "}
               <a
                 id="contact-telegram-link"
-                href="https://t.me/alphatide"
+                href="https://t.me/yf16881"
                 className="text-emerald-300 hover:text-emerald-200"
               >
-                @alphatide
+                @yf16881
               </a>
+            </p>
+            <p className="mt-1">
+              WeChat：{" "}
+              <span id="contact-wechat-handle" className="text-emerald-300">
+                btc1688
+              </span>
             </p>
           </div>
         </div>

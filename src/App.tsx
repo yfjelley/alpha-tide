@@ -1,3 +1,4 @@
+import emailjs from "@emailjs/browser";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
@@ -29,9 +30,36 @@ function App() {
     scrollToSection(sectionId);
   };
 
-  const handleContactSubmit = (data: ContactFormData) => {
-    // 预留 onSubmit(formData) 接口，当前简单打印数据
+  const handleContactSubmit = async (data: ContactFormData) => {
     console.log("onSubmit hook:", data);
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId =
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_469m70a";
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      console.warn(
+        "EmailJS 配置缺失，请在环境变量中设置 VITE_EMAILJS_SERVICE_ID / VITE_EMAILJS_TEMPLATE_ID / VITE_EMAILJS_PUBLIC_KEY。"
+      );
+      return;
+    }
+
+    const templateParams = {
+      name: data.name,
+      email: data.email,
+      telegram: data.telegram || "N/A",
+      experience: data.experience || "N/A",
+      coreProblem: data.coreProblem || "N/A",
+      capital: data.capital || "N/A",
+      message: data.message || "N/A",
+      // 一些模板中使用 title 字段，这里用用户的需求摘要填充
+      title: data.coreProblem || "AlphaTide 联系表单"
+    };
+
+    await emailjs.send(serviceId, templateId, templateParams, {
+      publicKey
+    });
   };
 
   return (

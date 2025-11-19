@@ -56,6 +56,13 @@ export function Hero({ onPrimaryClick, onSecondaryClick }: HeroProps) {
             </button>
           </div>
 
+          <p
+            id="hero-cta-note"
+            className="mt-1 text-[11px] text-slate-400 sm:text-xs"
+          >
+            适合资金 $10k–$1M、希望系统化交易的客户。
+          </p>
+
           <p className="text-xs text-slate-400">
             面向有资金的个人交易者与小型基金，帮助你在合理风险下，把交易想法快速落地为可运行的量化系统。
           </p>
